@@ -1,0 +1,64 @@
+body, html, #root {
+  height: auto;
+  overflow-y: visible;
+}
+
+
+.dropdown-menu {
+    position: absolute;
+    top: 65px;
+    width: 170px;
+    height: calc(100vh - 65px);
+    background: rgb(140, 230, 255);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 1000;
+  }
+  
+.dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+  
+.dropdown-menu li {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+  
+.dropdown-menu li:hover {
+    background-color: rgb(130, 220, 245);
+}
+
+.profile {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+/*.profile-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 0.5rem;
+}*/
+
+.profile-img {
+    width: 50px;
+    height:50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+
+.profile-row {
+    display: flex;
+    align-items: center; /* יישור אנכי של שם ותמונה */
+    gap: 10px; /* רווח בין התמונה לשם */
+    margin-bottom: 20px;
+  }
+
+  

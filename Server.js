@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());
 
 
-mongoose.connect('mongodb+srv://studybuddyproject:shgMU9qov7ZKk0iV@studybuddy.qndgkew.mongodb.net/Users', {
+mongoose.connect('mongodb+srv://*****', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });

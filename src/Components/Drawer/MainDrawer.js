@@ -2,17 +2,14 @@
 import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 
 import HamburgerButton from './HamburgerButton';
-import Feed from '../Feed.css';
 
 import SettingIcon from '@mui/icons-material/Settings';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -22,7 +19,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
 import Collapse from '@mui/material/Collapse';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import HomeIcon from '@mui/icons-material/Home';
@@ -77,25 +73,15 @@ const MainDrawer = (props) => {
           secondary={props.data.institution}/>
       </ListItemButton>
 
-      <ListItemButton onClick={() => {props.onChangeContent("Home"); setDrawerOpen(false);}}>
+      <ListItemButton onClick={() => {props.onChangeContent(props.data.selectedDegree); setDrawerOpen(false);}}>
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="Home" />
       </ListItemButton>
 
-      <ListItemButton onClick={() => {
-        props.onChangeContent("Settings");
-        setDrawerOpen(false);
-        }}>
-        <ListItemIcon>
-          <SettingIcon />
-        </ListItemIcon>
-        <ListItemText primary="Settings" />
-      </ListItemButton>
-
       <ListItemButton  onClick={() => {
-        props.onChangeContent("MyPosts");
+        props.onChangeContent("My Posts");
         setDrawerOpen(false);
       }}>
         <ListItemIcon>

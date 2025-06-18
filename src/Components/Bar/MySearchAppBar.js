@@ -163,7 +163,7 @@ const MySearchAppBar=(props) => {
 
             <AddPostButton onClick={() => { props.onChangeContent("AddPost"); }} />
             <MessagesButton userID = {props.data.userID} onClick={() => { props.onChangeContent("Messages"); }} />
-            <NotificationsButton onClick={() => { props.onChangeContent("Notifications"); }}/>
+            {/*<NotificationsButton onClick={() => { props.onChangeContent("Notifications"); }}/>*/}
 
             <IconButton
               size="large"

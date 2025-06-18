@@ -1,13 +1,10 @@
 "use client"
 
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./FireBase";
-import { useNavigate } from "react-router-dom"; 
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { database } from "./FireBase";
-import { ref, set, get } from "firebase/database";
-import { onValue } from "firebase/database";
-import { Menu, MessageSquare, X } from "lucide-react";
+import { ref, get } from "firebase/database";
 import MySearchAppBar from "./Bar/MySearchAppBar";
 import MyPosts from "./FeedContent/Posts/MyPosts";
 import Settings from "./FeedContent/Settings";
@@ -15,11 +12,13 @@ import MessagesDashboard from "./FeedContent/Messages/MessagesDashboard";
 import AddPost from "./FeedContent/Posts/AddPost";
 import ContactSupport from "./FeedContent/Contact Support";
 import FetchRestAPI from "./BuildProfile/FetchRestAPI";
+import DeleteAccount from "./FeedContent/DeleteAccount";
+
+import { Typography, Box, } from '@mui/material';
 
 import "./Feed.css";
 import MainDrawer from "./Drawer/MainDrawer";
-import { AppBar } from "@mui/material";
-import Box from '@mui/material/Box';
+
 
 
 const Feed = () => {
@@ -34,7 +33,6 @@ const Feed = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeContent, setActiveContent] = useState(""); 
     const [feedKey, setFeedKey] = useState(0);
-    const navigateToFetchRestAPI = useNavigate();
     const [MorI, setMorI] = useState("");
 
     const categories = [
@@ -164,7 +162,7 @@ const Feed = () => {
                     if (typeof activeContent === "string") {
                         switch (activeContent) {
                             
-                            case "MyPosts":
+                            case "My Posts":
                             return (
                                 <MyPosts data={{ appUsername, profileImg, institution, intrestsArray, userID, selectedDegree, activeContent }} onChangeContent={setActiveContent} />
                             );
@@ -179,14 +177,9 @@ const Feed = () => {
                                 <MessagesDashboard data={{ appUsername, profileImg, institution, intrestsArray, userID, selectedDegree}} onChangeContent={setActiveContent}/>
                             );
 
-                            case "Settings":
-                            return (
-                                <Settings/>
-                            );
-
                             case "Delete Account":
                             return (
-                                <p>Delete Account goes here</p>
+                                <DeleteAccount data={{userID, }} onChangeContent={setActiveContent}/>
                             );
 
                             case "Contact Support":
@@ -223,7 +216,11 @@ const Feed = () => {
                                     />
                                     );
                                 } else {
-                                    return <p>Welcome to your feed!</p>;
+                                    return(
+                                    <Typography variant="h5" align="center" padding={2}>
+                                        Wellcome to your feed, {appUsername}!
+                                    </Typography>
+                                    );
                                 }
                             }
                         }

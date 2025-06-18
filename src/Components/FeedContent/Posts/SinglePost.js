@@ -1,6 +1,6 @@
 "use client";
 
-import {use, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -17,7 +17,6 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CloseIcon from '@mui/icons-material/Close';
-import Badge from '@mui/material/Badge';
 
 
 import axios from 'axios';
@@ -63,12 +62,34 @@ const SinglePost = ({ selectedPost, appUsername , onClose, userID }) => {
 
 
 
+  
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const res = await axios.post("http://localhost:9090/api/messages/getNumLikes", {
+          postID: selectedPost._id,
+        });
+        setNumOfLikes(res.data.likes);
+        
+
+      } catch (err) {
+        console.error("Error fetching unread count periodically", err);
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [selectedPost._id]);
+
+
+  useEffect(() => {
+    console.log("numOfLikes = ", numOfLikes);
+  }, [numOfLikes]);
+
+
+
+
 
   const handleLikeClick = () => {
-
-    //console.log("userID = ", userID);
-    //console.log("postID = ", selectedPost._id);
-    //console.log("ownerID = ", selectedPost.creator);
 
 
     const addLikedPosts = async () => { 
@@ -118,9 +139,9 @@ const SinglePost = ({ selectedPost, appUsername , onClose, userID }) => {
             <IconButton onClick={onClose} aria-label="close" sx={{ color: red[500] }}>
               <CloseIcon />
             </IconButton>
-            <IconButton aria-label="settings">
+            {/*<IconButton aria-label="settings">
               <MoreVertIcon />
-            </IconButton>
+            </IconButton>*/}
           </>
         }
         title={selectedPost.title + ' / by ' + selectedPost.creatorName}
@@ -144,11 +165,11 @@ const SinglePost = ({ selectedPost, appUsername , onClose, userID }) => {
           <FavoriteIcon sx={{ color: likeOrUnliked ? red[500] : 'inherit' }} />
         </IconButton>
         <Typography variant="body2" sx={{ fontSize: '0.76rem', color: 'text.secondary' }}>
-          100
+          {numOfLikes}
         </Typography>
-        <IconButton aria-label="share">
+        {/*<IconButton aria-label="share">
           <ShareIcon />
-        </IconButton>
+        </IconButton>*/}
         <ExpandMore
           expand={expanded ? 1 : 0}
           onClick={handleExpandClick}

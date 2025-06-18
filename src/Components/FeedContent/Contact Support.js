@@ -1,7 +1,8 @@
-import { Typography, Box, Link } from '@mui/material';
+"use client";
+
+import { Typography, Box } from '@mui/material';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 
-import EmailIcon from '@mui/icons-material/Email';
 
 const ContactSupport = () => {
     return (

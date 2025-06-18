@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useEffect, useState} from "react";
-import axios from "axios";
+import { useEffect, useState} from "react";
 import useGetPosts from "./useGetPosts";
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import SinglePost from "./SinglePost";
 import { Paper, Box } from '@mui/material';
-import { set } from "mongoose";
 
 
 const MyPosts = (props) => {
@@ -61,7 +59,7 @@ const MyPosts = (props) => {
             }}
           >
             <img
-              src={item.postImg} // תמונה מקודדת Base64
+              src={item.postImg} // Base 64 encoded image
               alt={item.title}
               loading="lazy"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}

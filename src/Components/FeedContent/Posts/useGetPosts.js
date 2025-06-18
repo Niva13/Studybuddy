@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -10,7 +12,7 @@ const useGetPosts = (userID, activeContent) => {
     setPosts([]);               
     const FetchMyPosts = async () => {
     try {
-        if (userID && activeContent === 'MyPosts') {
+        if (userID && activeContent === 'My Posts') {
           const response = await axios.post("http://localhost:9090/api/users", {
           command: 'selectPostsByUserID',
           data: { userID },

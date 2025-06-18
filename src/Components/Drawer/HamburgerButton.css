@@ -1,6 +1,6 @@
 .hamburger {
   position: absolute;
-  top: 26px;  /* ברירת מחדל כשהכפתור פתוח */
+  top: 26px;
   left: 20px;
   width: 40px;
   height: 20px;
@@ -12,9 +12,9 @@
   transition: all 0.3s ease-in-out;
 }
   
-/* כשהכפתור סגור – נזיז אותו מעט למטה */
+
 .hamburger:not(.open) {
-  top: 26px; /* מזיז את הכפתור כלפי מטה כשהוא סגור */
+  top: 26px;
 }
   
 .bar {
@@ -24,7 +24,6 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* כאשר הכפתור פתוח */
 .hamburger.open .bar:nth-child(1) {
   transform: rotate(45deg) translate(12px, 12px);
 }

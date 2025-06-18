@@ -21,31 +21,29 @@ body {
   margin: 3px 0;
 }
 
-/* כותרת ראשית */
+
 .title {
   font-size: 2.5rem;
   color: #1976d2;
   font-weight: bold;
 }
 
-/* תת־כותרת */
 .subtitle {
   font-size: 1.8rem;
   color: #1976d2;
   font-weight: 500;
 }
 
-/* כותרת קטנה */
 .small-title {
   font-size: 1.1rem;
   color: #444;
   font-weight: bold;
 }
 
-/* כפתורים */
+
 .auth-button {
   margin: 10px;
-  padding: 10px 20px;
+  padding: 10px;
   font-size: 1rem;
   background-color: #1976d2;
   color: white;

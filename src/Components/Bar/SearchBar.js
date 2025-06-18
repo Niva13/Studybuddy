@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState, useRef } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -67,7 +69,7 @@ const SearchBar = ({ appUsername, userID, onSelectUser }) => {
         });
         setAllUsers(res.data.users || []);
       } catch (err) {
-        alert("Error fetching users: " + err.message);
+        console.log("Error fetching users: " + err.message);
       }
     };
     if(userID){

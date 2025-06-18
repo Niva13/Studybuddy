@@ -25,7 +25,7 @@
     text-align: right;
 }
 
-/* תצוגה מקדימה של תמונת פרופיל */
+
 .profile-preview {
     margin-top: 2rem;
     text-align: center;
@@ -40,7 +40,6 @@
     margin-top: 0.5rem;
 }
 
-/* הודעת הצלחה */
 .success-message {
     color: green;
     margin-top: 1rem;
@@ -48,7 +47,6 @@
     font-weight: bold;
 }
 
-/* עטיפת הטופס */
 .build-profile-wrapper {
     max-width: 500px;
     margin: 0 auto;

@@ -1,12 +1,9 @@
 "use client"
 
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import BuildYourProfile from "./BuildYourProfile";
 
 const FetchRestAPI = (props) => {
-
-    const navigateToBuildYourProfile = useNavigate();
 
     const [institutions, setInstitutions] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -41,5 +38,3 @@ const FetchRestAPI = (props) => {
 }; 
 
 export default FetchRestAPI
-
-/*<button onClick={() => navigateToBuildYourProfile('/YourCountries')}>Go To Build Your Profile</button>*/

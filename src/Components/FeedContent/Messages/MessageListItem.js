@@ -1,6 +1,5 @@
 "use client";
 
-import React from 'react';
 import { ListItem, ListItemAvatar, Avatar, ListItemText, Typography } from '@mui/material';
 
 const MessageListItem = ({ sender, text, time, onClick, unread }) => {

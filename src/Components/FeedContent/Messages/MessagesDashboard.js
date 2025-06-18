@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Paper, Typography, List, Divider, Box } from '@mui/material';
+"use client";
+
+import { useState, useEffect } from 'react';
+import { Paper, Typography, List, Box } from '@mui/material';
 import MessageListItem from './MessageListItem';
 
 import axios from 'axios';
 import {Button, ListItem, ListItemText, ListItemAvatar, Avatar} from '@mui/material';
 
 import SingleConversation from './SingleConversation';
-import { set } from 'mongoose';
 import { io } from 'socket.io-client';
 import { useRef } from 'react';
 
@@ -74,7 +75,6 @@ const MessagesDashboard = (props) => {
       } 
       catch (err) {
         console.error("Error fetching last messages", err);
-        alert("Error fetching last messages");
       }
     };
 
@@ -125,15 +125,6 @@ const MessagesDashboard = (props) => {
   fetchUsers();
 }, [lastMessages, refreshFlag, refreshFlagSokcket, refreshFlagRead, props.data.appUsername, props.data.userID]);
 
-
-
-  /*const messages = [
-    
-  ];
-
-  const handleMessageClick = (sender) => {
-    setSelectedSender(sender);
-  };*/
 
   return (
     <Box

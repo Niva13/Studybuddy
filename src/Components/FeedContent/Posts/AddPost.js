@@ -5,7 +5,6 @@ import ProfileImageUploader from 'C:/Users/NivaPerez/Desktop/Android 2/studybudd
 import UseImageCompression from '../../BuildProfile/useImageCompression';
 import axios from 'axios';
 
-import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -13,7 +12,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Slide from '@mui/material/Slide';
 import { Paper } from '@mui/material';
-import { set } from 'mongoose';
+
 
 // אנימציית פתיחה (אופציונלית)
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -102,7 +101,7 @@ const AddPost =(props)=> {
 
 
 
-        alert("Post added:");
+        console.log("Post added:");
 
         setTitle('');
         setDescription('');

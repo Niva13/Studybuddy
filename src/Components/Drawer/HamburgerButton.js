@@ -1,5 +1,4 @@
 "use client";
-import React from 'react';
 import './HamburgerButton.css';
 
 const HamburgerButton = ({ isOpen, toggle }) => {

@@ -263,11 +263,11 @@ app.post('/api/users/IsItLiked', async (req, res) => {
 
       if(isItInLiked){
         isItLike = true;
-        console.log("2. isItInLike = ",isItInLiked);
+        //console.log("2. isItInLike = ",isItInLiked);
       }
       else{
         isItLike = false;
-        console.log("3. isItInLike = ",isItInLiked);
+        //console.log("3. isItInLike = ",isItInLiked);
       }
       return res.json({ message: 'checking if is liked completed',isItLike: isItLike});
     } 
@@ -315,7 +315,6 @@ app.post('/api/posts', async (req, res) => {
         
         switch (command) {
             
-            
             case 'addPostToTotalPosts':
                 {const newPost = new Post({ 
                     title: data.title,
@@ -342,6 +341,7 @@ app.post('/api/posts', async (req, res) => {
                     return res.json({ message: 'Users fetched posts', posts: allPosts });
             }
 
+            
             default:
                 return res.status(400).json({ message: 'Unknown command' });
 
@@ -356,7 +356,30 @@ app.post('/api/posts', async (req, res) => {
 
 
 
+app.post('/api/messages/getNumLikes', async (req, res) => {
 
+  const { postID } = req.body;
+
+ 
+  
+
+  try {
+    
+    const post = await Post.findById(postID);
+
+    
+
+    if (!post) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.json({ success: true, likes: post.likes || 0 });
+  }
+  catch (err) {
+    console.error("Error fetching unread messages count", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 
 
@@ -540,6 +563,62 @@ app.post('/api/messages/markAsRead', async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+
+
+
+app.post('/api/users/deleteUser', async (req, res) => {
+  const { userID } = req.body;
+
+  try {
+    const user = await User.findOne({ userID });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+
+    const likedPosts = user.likedPosts;
+
+    if (likedPosts && likedPosts.length > 0) {
+      for (const postId of likedPosts) {
+        await Post.updateOne(
+          { _id: postId },
+          { $inc: { likes: -1 } }
+        );
+
+        await User.updateMany(
+          { "posts._id": postId },
+          { $inc: { "posts.$.likes": -1 } }
+        );
+      }
+    }
+
+    //console.log("Deleting userID:", userID);
+
+    const deletedUser = await User.deleteOne({ userID });
+    const deletedMessages = await Message.deleteMany({ $or: [{ Sender: userID }, { receiver: userID }] });
+    const deletedPosts = await Post.deleteMany({ creator: userID });
+    
+    res.json({
+      success: true,
+      message: "User and related data deleted successfully",
+      stats: {
+        deletedMessages: deletedMessages.deletedCount,
+        deletedPosts: deletedPosts.deletedCount,
+        deletedUsers: deletedUser.deletedCount
+      }
+    });
+  } catch (err) {
+    console.error("Error deleting user:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+
+
+
+
 
 
 

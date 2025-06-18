@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react"
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from './FireBase'
 import { useNavigate } from "react-router-dom"
 import './Dashboard.css';
+
+import Typography from '@mui/material/Typography';
 
 const SignIn = () => {
 
@@ -24,6 +26,24 @@ const SignIn = () => {
             alert("ERROR! user login failed!");
             navigate(0);
         }
+    }
+
+    const ResetPassword = async () => {
+        
+           
+
+        const auth = getAuth();
+        sendPasswordResetEmail(auth, email)
+        .then(() => {
+            // Password reset email sent!
+            //alert("Password reset email sent!");
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ..
+        });
+        
     }
 
     return (
@@ -59,7 +79,20 @@ const SignIn = () => {
                     }}
 
                     />
-                <button type="submit" className="auth-button"> Sign in </button>
+                
+                <Typography style={{ width: '250px', marginTop: '10px' }}>
+                    Forgot Password?
+                </Typography>
+                <div>
+                    <button className="auth-button" onClick={ResetPassword} style={{ width: '140px', marginLeft: '10px' }}>
+                        Reset Password
+                    </button>
+                    
+                    <button type="submit" className="auth-button" style={{ width: '100px', marginLeft: '10px' }}>
+                        Sign in
+                    </button>
+                </div>
+                
             </form>
         </div>
     )

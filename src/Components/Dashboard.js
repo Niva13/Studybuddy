@@ -1,10 +1,7 @@
 "use client"
 
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
-//import MainScreen from "./MainScreen";
-import React, { useEffect, useState, useRef } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./FireBase";
 import { useNavigate } from "react-router-dom";
 import Feed from "./Feed";
@@ -37,7 +34,7 @@ const Dashboard = () => {
                         <h1 className="title">STUDYBUDDY</h1>
                     </div>
                     <div className="centered-row">
-                        <h1 className="subtitle">Sign in or SignUp</h1>
+                        <h1 className="subtitle">Sign in or Sign Up</h1>
                     </div>
                     <div className="centered-row">
                         <button className="auth-button" onClick={() => navigate('/SignIn')}>SignIn</button>
@@ -46,7 +43,7 @@ const Dashboard = () => {
                         <h2 className="small-title">Don't have an account?</h2>
                     </div>
                     <div className="centered-row">
-                        <button className="auth-button" onClick={() => navigate('/SignUp')}>SignUp</button>
+                        <button className="auth-button" onClick={() => navigate('/SignUp')}>Sign Up</button>
                     </div>
                 </div>
             )}

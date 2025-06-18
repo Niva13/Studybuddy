@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+
 import IconButton from '@mui/material/IconButton';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 

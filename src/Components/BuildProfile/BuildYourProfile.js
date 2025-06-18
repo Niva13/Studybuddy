@@ -1,4 +1,3 @@
-// BuildYourProfile.jsx
 "use client";
 
 import "./BuildYourProfile.css";
@@ -17,8 +16,6 @@ import UseImageCompression from "./useImageCompression";
 import axios from "axios";
 
 import { Paper } from '@mui/material';
-
-
 
 const BuildYourProfile = (props) => {
     const [appUsername, setAppUsername] = useState("");
@@ -93,10 +90,9 @@ const BuildYourProfile = (props) => {
                 });
 
                 if (isUsernameTaken) {
-                    alert("Username already taken");
+                    console.log("Username already taken");
                     return;
                 }
-
 
                 const profileData = {
                     appUsername,
@@ -128,7 +124,7 @@ const BuildYourProfile = (props) => {
                                 profileImg: profileImg,
                             }
                         });
-                        alert("user selectedDegree updated successfully at MondoDB");
+                        console.log("user selectedDegree updated successfully at MondoDB");
                         await signOut(auth);
                     }
                     catch(err){
@@ -149,21 +145,21 @@ const BuildYourProfile = (props) => {
                                 profileImg: profileImg,
                             }
                         });
-                        alert("user registered successfully at MondoDB");
+                        console.log("user registered successfully at MondoDB");
 
                         setIsSaved(true);
                         setAppUsername("");
                         setProfileImg("");
                         setSelectedFile(null);
                         setTimeout(() => setIsSaved(false), 3000);
-                        alert("Profile saved successfully! ✅");
+                        console.log("Profile saved successfully!");
                         await signOut(auth);
                         navigateToDashboard("/Dashboard");
                     }
 
                     catch (err) {
                         console.log(err);
-                        alert(err);
+                        console.log(err);
                         navigate(0);
                     }
                 }
@@ -174,7 +170,7 @@ const BuildYourProfile = (props) => {
                 console.error("Error saving profile:", error);
             }
         } else {
-            alert("Please fill in all the required fields.");
+            console.log("Please fill in all the required fields.");
         }
     };
 

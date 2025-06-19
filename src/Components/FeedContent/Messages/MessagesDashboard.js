@@ -1,14 +1,15 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Paper, Typography, List, Box } from '@mui/material';
 import MessageListItem from './MessageListItem';
 
-import axios from 'axios';
 import {Button, ListItem, ListItemText, ListItemAvatar, Avatar} from '@mui/material';
 
 import SingleConversation from './SingleConversation';
-import { io } from 'socket.io-client';
+import useSocketMessages from './useSocketMessages';
+import useFetchLastMessages from './useFetchLastMessages';
+import useFetchUsers from './useFetchUsers';
 import { useRef } from 'react';
 
 
@@ -33,97 +34,27 @@ const MessagesDashboard = (props) => {
   };
 
 
+  useSocketMessages({
+    userID: props.data.userID,
+    setLastMessages,
+    setRefreshFlagSokcket,
+    socket,
+  });
 
+  useFetchLastMessages({
+    userID: props.data.userID,
+    refreshDeps: [refreshFlag, refreshFlagSokcket, refreshFlagRead],
+    setLastMessages,
+  });
 
-  
-
-  useEffect(() => {
-    socket.current = io("http://localhost:9090");
-
-    socket.current.emit("join", props.data.userID);
-
-    socket.current.on("receiveMessage", (msg) => {
-      const otherUser = msg.Sender === props.data.userID ? msg.receiver : msg.Sender;
-
-
-      setLastMessages((prevMessages) => {
-        const filtered = prevMessages.filter(m =>
-          (m.Sender !== otherUser && m.receiver !== otherUser)
-        );
-
-        return [msg, ...filtered];
-      });
-
-      setRefreshFlagSokcket(prev => !prev);
-    });
-
-    return () => {
-      socket.current.disconnect();
-    };
-  }, [props.data.userID]);
-
-
-  
-
-
-
-  useEffect(() => {
-    const fetchLastMessages = async () => {
-      try {
-        const res = await axios.get(`http://localhost:9090/api/messages/last/${props.data.userID}`);
-        setLastMessages(res.data.latestMessages || []);
-      } 
-      catch (err) {
-        console.error("Error fetching last messages", err);
-      }
-    };
-
-    if(props.data.userID)
-    {
-      fetchLastMessages();
-    }
-  }, [props.data.userID, refreshFlag, refreshFlagSokcket, refreshFlagRead]);
-
-
-
-
-
-
-
-
-  useEffect(() => {
-
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.post("http://localhost:9090/api/users", {
-        command: 'getAllUsers',
-        data: {userID: props.data.userID},
-      });
-
-
-      const otherUsers  = res.data.users.filter(u => u.appUsername !== props.data.appUsername);
-      setAllUsers(otherUsers);
-
-      setFilteredUsers(otherUsers);
-
-      const usersInConversation = new Set(
-        lastMessages.map(msg =>
-          msg.Sender === props.data.userID ? msg.receiver : msg.Sender
-        )
-      );
-
-      const filtered = otherUsers.filter(
-        u => !usersInConversation.has(u.userID)
-      );
-
-      setFilteredUsers(filtered);
-
-    } catch (err) {
-      console.error("Error fetching users", err);
-    }
-  };
-  fetchUsers();
-}, [lastMessages, refreshFlag, refreshFlagSokcket, refreshFlagRead, props.data.appUsername, props.data.userID]);
+  useFetchUsers({
+    userID: props.data.userID,
+    appUsername: props.data.appUsername,
+    lastMessages,
+    refreshDeps: [refreshFlag, refreshFlagSokcket, refreshFlagRead],
+    setAllUsers,
+    setFilteredUsers,
+  });
 
 
   return (

@@ -4,11 +4,13 @@ import { useEffect, useState, useRef } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import axios from 'axios';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Paper from '@mui/material/Paper';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
+
+import useFetchAllUsers from './useFetchAllUsers';
+
 
 const SearchWrapper = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,31 +54,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const SearchBar = ({ appUsername, userID, onSelectUser }) => {
 
   const [searchText, setSearchText] = useState('');
-  const [allUsers, setAllUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [openMenu, setOpenMenu] = useState(false);
   const inputRef = useRef();
 
+  const allUsers = useFetchAllUsers(userID);
+
+
   
-
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.post("http://localhost:9090/api/users", {
-          command: "getAllUsers",
-          data: {userID:userID},
-        });
-        setAllUsers(res.data.users || []);
-      } catch (err) {
-        console.log("Error fetching users: " + err.message);
-      }
-    };
-    if(userID){
-      fetchUsers();
-    }
-   
-  }, [userID ]); 
 
 
   useEffect(() => {
@@ -94,6 +79,8 @@ const SearchBar = ({ appUsername, userID, onSelectUser }) => {
       setOpenMenu(matches.length > 0);
     }
   }, [searchText, allUsers, appUsername]);
+
+  
 
   const handleSelect = (user) => {
 

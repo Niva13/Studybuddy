@@ -106,9 +106,7 @@ const DeletteAccount = (props) => {
 
 
 
-    const handleNOTDeleteAccount = () => {
-        
-    }
+    const handleNOTDeleteAccount = () => {props.onChangeContent("Home");}
 
 
 

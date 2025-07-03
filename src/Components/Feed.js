@@ -167,7 +167,7 @@ const Feed = () => {
                                 <MyPosts data={{ appUsername, profileImg, institution, intrestsArray, userID, selectedDegree, activeContent }} onChangeContent={setActiveContent} />
                             );
 
-                            case appUsername:        
+                            case "FetchProfile":        
                             return (
                                 <FetchRestAPI/>
                             );

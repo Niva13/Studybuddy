@@ -55,7 +55,7 @@ const MainDrawer = (props) => {
     <Box sx={{ width: 250 }} role="presentation" /*onKeyDown={toggleDrawer(false)}*/>
       
       <ListItemButton onClick={() => {
-        props.onChangeContent(props.data.appUsername);
+        props.onChangeContent("FetchProfile");
         setDrawerOpen(false);
         }}>
         <ListItemIcon>

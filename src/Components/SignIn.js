@@ -17,32 +17,38 @@ const SignIn = () => {
 
     const handleSignIn = async (e) => {
         e.preventDefault()
+        if (!email || !password) {
+            alert("Please fill in both fields.");
+            return;
+        }
+
         try {
             await signInWithEmailAndPassword(auth, email, password);
             navigate('/Dashboard');
-
-        } catch (err) {
-            console.log(err)
+        }
+        catch (err) {
+            console.error(err);
             alert("ERROR! user login failed!");
-            navigate(0);
         }
     }
 
     const ResetPassword = async () => {
         
            
+    if (!email) {
+            alert("Please enter your email address first.");
+            return;
+        }
 
-        const auth = getAuth();
-        sendPasswordResetEmail(auth, email)
-        .then(() => {
-            // Password reset email sent!
-            //alert("Password reset email sent!");
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
-        });
+    try {
+        await sendPasswordResetEmail(auth, email);
+        alert("Email to reset your password was sent!");
+        setEmail("");
+        setPassword("");
+    } catch (error) {
+        alert("Failed to send reset email: " + error.message);
+        console.error(error);
+    }
         
     }
 
@@ -84,7 +90,7 @@ const SignIn = () => {
                     Forgot Password?
                 </Typography>
                 <div>
-                    <button className="auth-button" onClick={ResetPassword} style={{ width: '140px', marginLeft: '10px' }}>
+                    <button type="button" className="auth-button" onClick={ResetPassword} style={{ width: '140px', marginLeft: '10px' }}>
                         Reset Password
                     </button>
                     

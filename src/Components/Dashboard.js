@@ -37,7 +37,7 @@ const Dashboard = () => {
                         <h1 className="subtitle">Sign in or Sign Up</h1>
                     </div>
                     <div className="centered-row">
-                        <button className="auth-button" onClick={() => navigate('/SignIn')}>SignIn</button>
+                        <button className="auth-button" onClick={() => navigate('/SignIn')}>Sign In</button>
                     </div>
                     <div className="centered-row">
                         <h2 className="small-title">Don't have an account?</h2>
